@@ -95,6 +95,7 @@ export default function Page() {
             <FavoriteSection data={collections} />
           </>
         )}
+
         {outdated.length > 0 && (
           <>
             <Collapse
@@ -116,7 +117,7 @@ export default function Page() {
               <BannedSection data={banned} />
             </Collapse>
           </>
-        )} 
+        )}
       </main>
 
       <ApplyLinkInfo />
@@ -263,34 +264,30 @@ const ApplyLinkInfo: FC = () => {
   })
   const { present } = useModalStack()
   if (!canApply) {
-    return <NotSupport className="mt-20" text="主人关闭了申请友链通道，请邮件至 niuboss123@foxmail.com 申请友链" />
+    return <NotSupport className="mt-20" text="主人禁止了申请友链。" />
   }
   return (
     <>
       <div className="prose mt-20">
         <Markdown>
           {[
-            `**申请友链前必读**`,
-            `- 申请友链时请确保您的站点同时也有我们的站点的友链，若审批通过后移除本站链接，本站也将移除友链。`,
+            `- 申请友链前请**务必确保**贵站有我站的友链，若审批通过后移除本站链接，本站也将移除友链，并加入黑名单。`,
+            `- 若站点长时间无法访问，我会删除您的友链，恢复后可再次申请。`,
             `- 确保您的网站不存在政治敏感问题及违法内容。没有过多的广告、无恶意软件、脚本。且转载文章须注明出处。`,
-            `- 若站点长时间无法访问，我们会暂时归档您的友链，恢复后可再次申请。`,
-            `- 确保站点可以以 HTTPS 访问。`,
-            `- 商业及非个人的网站的友链申请均不通过 (朋友和合作者除外)。`,
+            `- 确保站点全局启用 HTTPS`,
+            `- 您需要有自己的独立域名，暂且不同意公有子域名或免费域名的友链申请 (如 github.io, vercel.app, eu.org, js.cool, .tk, .ml, .cf 等)`,
+            `- 暂时不同意商业及非个人的网站的友链申请`,
           ].join('\n\n')}
         </Markdown>
         <Markdown className="[&_p]:!my-1">
           {[
             '',
-            `**标题**: ${seo.title}`,
-            `**地址**: ${`${location.protocol}//${location.host}`}`,
-            `**描述**: ${seo.description}`,
-            `**头像**: ${avatar}`,
-          ].join('\n\n')}
-        </Markdown>
-        <Markdown>
-          {[
-            `**补充提醒**`,
-            `- 由于一些友链名单上的网站的站长对部分友链反感，我已经下架了一部分友链，以避免引起不必要的麻烦。`,
+            `**站点标题**: [${
+              seo.title
+            }](${`${location.protocol}//${location.host}`})`,
+            `**站点描述**: ${seo.description}`,
+            `**主人头像**: [点击下载](${avatar})`,
+            `**主人名字**: ${name}`,
           ].join('\n\n')}
         </Markdown>
       </div>
@@ -365,7 +362,7 @@ const FormModal = () => {
     },
     {
       name: 'email',
-      placeholder: '你的邮箱 *',
+      placeholder: '留下你的邮箱哦 *',
 
       rules: [
         {
@@ -376,16 +373,16 @@ const FormModal = () => {
     },
     {
       name: 'description',
-      placeholder: '你的站点简介 *',
+      placeholder: '一句话描述一下自己吧 *',
 
       rules: [
         {
           validator: (value: string) => !!value,
-          message: '一句话描述一下自己的网站吧',
+          message: '一句话描述一下自己吧',
         },
         {
           validator: (value: string) => value.length <= 50,
-          message: '不要超过50个字啦',
+          message: '一句话描述不要超过50个字啦',
         },
       ],
     },

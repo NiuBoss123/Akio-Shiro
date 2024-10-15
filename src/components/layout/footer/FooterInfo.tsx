@@ -182,7 +182,7 @@ const FooterBottom = async () => {
       <p>
         <span>© {date.replace('{{now}}', currentYear)} </span>
         <a href="/">
-          Misaka Akio
+          <OwnerName />
         </a>
         <span>.</span>
         <span>
@@ -201,7 +201,7 @@ const FooterBottom = async () => {
           </SubscribeTextButton>
         </span>
         <span className="mt-3 block md:mt-0 md:inline">
-          为世界上所有的美好而战
+          Stay hungry. Stay foolish.
         </span>
       </p>
       <div>
